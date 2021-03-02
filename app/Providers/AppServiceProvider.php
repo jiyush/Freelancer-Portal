@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // provide  user roles data to auth view
+        view()->composer('auth.*', function ($view) {
+            $view->with('roles', Role::where('name','!=','admin')->orderBy('name')->get());
+        });
     }
 }
