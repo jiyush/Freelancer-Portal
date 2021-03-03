@@ -6,6 +6,10 @@
                     <div class="sb-sidenav-menu-heading"></div>
                     <a class="nav-link" href="index.html">
                         <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                        Search Job
+                    </a>
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                         My Jobs
                     </a>
                 </div>

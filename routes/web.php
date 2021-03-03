@@ -22,6 +22,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/user/add','UserController@addUser')->name('user.add');
 Route::post('/home/user/save','UserController@saveUser')->name('user.save');
+Route::get('/home/user/edit/{id}','UserController@editUser')->name('user.edit');
+Route::post('/home/user/update', 'UserController@updateUser')->name('user.update');
+Route::post('/home/user/delete', 'UserController@delete')->name('user.delete');
 
 Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');

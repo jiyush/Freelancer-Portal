@@ -38,16 +38,18 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>
-                                    <a href="" class="btn btn-info" >Edit</a>
+                                    <a href="{{ route('user.edit',['id' => $user->id]) }}" class="btn btn-info" >Edit</a>
                                 </td>
                                 <td>
-                                    <button href="" class="btn btn-danger" >Delete</button>
+                                    <form action="{{ route('user.delete',['id' => $user->id]) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" value="{{ $user->id }}" name="id">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $user->name }}?')" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                     @endempty
-
-
                 </tbody>
             </table>
         </div>

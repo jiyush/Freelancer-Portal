@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
+     * Create a new user controller instance.
+     *
+     * @return void
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+
+    /**
      * Add user form
      */
     public function addUser(){
@@ -32,12 +43,53 @@ class UserController extends Controller
                 'role' => ['required','string'],
             ]);
             $data = $request->all();
-            User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'role' => $data['role'],
-            ]);
+            $user = $this->user->addUser($data);
+            if($user){
+
+                return redirect(route('home'));
+            }
+    }
+
+    /**
+     * Show edit user form
+     *
+     * @param $id user id
+     */
+    public function editUser(Request $request){
+        $user = User::where('id','=',$request->id)->first();
+        return view('admin.editUser')->with('user', $user);
+
+    }
+
+    /**
+     * Update User
+     *
+     * @param Request $request
+     */
+    public function updateUser(Request $request){
+
+        $request->validate([
+            'id' => ['required'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$request->id],
+            'role' => ['required','string'],
+        ]);
+
+        $data = $request->all();
+        $user = $this->user->updateUser($data);
+        if($user){
+
             return redirect(route('home'));
+        }
+    }
+
+    /**
+     *  Delete User
+     *
+     * @param $id user id
+     */
+    public function delete(Request $request){
+        $this->user->deleteUser($request->id);
+        return redirect(route('home'));
     }
 }
