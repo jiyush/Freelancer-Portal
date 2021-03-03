@@ -9,7 +9,9 @@
             @elseif (Auth::user()->role == 'freelancer')
                 @include('freelancer.search')
             @else
-                @include('provider.job')
+                {{-- {{ die('hello') }} --}}
+                {{-- @include('provider.index') --}}
+                <script>window.location = "/home/job"</script>
             @endif
         </div>
     </main>
