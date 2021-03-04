@@ -41,6 +41,30 @@ class Job extends Model
     }
 
     /**
+     * update existing job
+     */
+    public function updateJob(array $data){
+        $job = Job::whereId($data['id'])->firstOrFail();
+        $job->title = $data['title'];
+        $job->description = $data['description'];
+        $job->category_id = $data['category_id'];
+        $job->user_id = Auth::user()->id;
+        $job->startdate = $data['startdate'];
+        $job->enddate = $data['enddate'];
+        $job->save();
+        return $job;
+    }
+
+    /**
+     * Delete job
+     *
+     * @param $id
+     */
+    public function deleteJob($id){
+        $job = Job::whereId($id)->delete();
+    }
+
+    /**
      * get category by id
      */
     public function categories(){
@@ -51,7 +75,9 @@ class Job extends Model
      * Get all job for listin
      */
     public function getAllJobs(){
-        $jobs = Job::with('categories')->get();
+        $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+                ->select('jobs.*','categories.name as category')
+                ->get();
         return $jobs;
     }
 }

@@ -7,7 +7,6 @@
     <div class="card-header">
         <i class="fas fa-table mr-1"></i>
         DataTable
-        <a href="{{ route('job.add') }}" class="btn btn-info" style="float: right;">Add Jobs</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -19,8 +18,6 @@
                         <th>Bid Status</th>
                         <th >Start Date</th>
                         <th>End Date</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -30,8 +27,6 @@
                         <th>Bid Status</th>
                         <th >Start Date</th>
                         <th>End Date</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -43,16 +38,6 @@
                                 <td>{{ $job->bid_status ? 'close' : 'open' }}</td>
                                 <td>{{ $job->startdate }}</td>
                                 <td>{{ $job->enddate }}</td>
-                                <td>
-                                    <a href="{{ route('job.edit',['id' => $job->id]) }}" class="btn btn-info" >Edit</a>
-                                </td>
-                                <td>
-                                    <form action="{{ route('job.delete',['id' => $job->id]) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" value="{{ $job->id }}" name="id">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $job->title }}?')" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
                             </tr>
                         @endforeach
                     @endempty

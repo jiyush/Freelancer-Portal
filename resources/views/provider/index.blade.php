@@ -5,7 +5,10 @@
     <main>
         <div class="container">
             @if (Auth::user()->role == 'job_provider')
-                @include('provider.jobList')
+                @include('provider.jobList');
+
+            @elseif(Auth::user()->role == 'admin')
+                @include('admin.jobList')
             @endif
         </div>
     </main>

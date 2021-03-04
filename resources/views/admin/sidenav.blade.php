@@ -11,6 +11,10 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
                         Category
                     </a>
+                    <a class="nav-link" href="{{ route('job') }}">
+                        <div class="sb-nav-link-icon"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                        Jobs
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
