@@ -19,32 +19,41 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'home', 'middleware' => 'auth'], function () {
 
-// User Routes
-Route::get('/home/user/add','UserController@addUser')->name('user.add');
-Route::post('/home/user/save','UserController@saveUser')->name('user.save');
-Route::get('/home/user/edit/{id}','UserController@editUser')->name('user.edit');
-Route::post('/home/user/update', 'UserController@updateUser')->name('user.update');
-Route::post('/home/user/delete', 'UserController@delete')->name('user.delete');
+    Route::get('/', 'HomeController@index')->name('home');
 
-// Category Routes
-Route::get('/home/category', 'CategoryController@index')->name('category');
-Route::get('/home/category/add', 'CategoryController@addCategory')->name('category.add');
-Route::post('/home/category/save', 'CategoryController@saveCategory')->name('category.save');
-Route::get('/home/category/edit/{id}', 'CategoryController@editCategory')->name('category.edit');
-Route::post('/home/category/update', 'CategoryController@updateCategory')->name('category.update');
-Route::post('/home/category/delete', 'CategoryController@delete')->name('category.delete');
+    // User Routes
+    Route::get('/user/add','UserController@addUser')->name('user.add');
+    Route::post('/user/save','UserController@saveUser')->name('user.save');
+    Route::get('/user/edit/{id}','UserController@editUser')->name('user.edit');
+    Route::post('/user/update', 'UserController@updateUser')->name('user.update');
+    Route::post('/user/delete', 'UserController@delete')->name('user.delete');
 
-// Job routes
-Route::get('/home/job', 'JobController@index')->name('job');
-Route::get('/home/job/add', 'JobController@addJob')->name('job.add');
-Route::post('/home/job/save', 'JobController@saveJob')->name('job.save');
-Route::get('/home/job/edit/{id}', 'JobController@editJob')->name('job.edit');
-Route::post('/home/job/update', 'JobController@updateJob')->name('job.update');
-Route::post('/home/job/delete', 'JobController@delete')->name('job.delete');
+    // Category Routes
+    Route::group(['prefix'=> 'category','middleware' => 'admin'],function () {
 
+        Route::get('/', 'CategoryController@index')->name('category');
+        Route::get('/add', 'CategoryController@addCategory')->name('category.add');
+        Route::post('/save', 'CategoryController@saveCategory')->name('category.save');
+        Route::get('/edit/{id}', 'CategoryController@editCategory')->name('category.edit');
+        Route::post('/update', 'CategoryController@updateCategory')->name('category.update');
+        Route::post('/delete', 'CategoryController@delete')->name('category.delete');
+    });
 
+    // Job routes
+    Route::get('/job', 'JobController@index')->name('job');
+    Route::get('/job/add', 'JobController@addJob')->name('job.add');
+    Route::post('/job/save', 'JobController@saveJob')->name('job.save');
+    Route::get('/job/edit/{id}', 'JobController@editJob')->name('job.edit');
+    Route::post('/job/update', 'JobController@updateJob')->name('job.update');
+    Route::post('/job/delete', 'JobController@delete')->name('job.delete');
+
+    // Freelance route
+    Route::get('/search', 'FreelancerController@index')->name('freelancer');
+    Route::post('/freelancer/bid', 'FreelancerController@bid')->name('freelancer.bid');
+
+});
 
 Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');

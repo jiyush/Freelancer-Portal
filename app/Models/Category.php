@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Job;
 
 class Category extends Model
 {
@@ -25,7 +26,7 @@ class Category extends Model
      */
     public function addCategory(array $data){
         $category = Category::create([
-            'name' => $data['name'],
+            'name' => ucwords($data['name']),
         ]);
         return $category;
     }
@@ -37,7 +38,7 @@ class Category extends Model
      */
     public function updateCategory(array $data){
         $category = Category::whereId($data['id'])->firstOrFail();
-        $category->name = $data['name'];
+        $category->name = ucwords($data['name']);
         $category->save();
         return $category;
     }
@@ -48,6 +49,7 @@ class Category extends Model
      * @param $id
      */
     public function deleteCategory($id){
+        Job::where('category_id','=',$id)->delete();
         Category::whereId($id)->delete();
     }
 

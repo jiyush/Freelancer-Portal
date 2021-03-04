@@ -17,8 +17,7 @@ class CreateBidsTable extends Migration
             $table->id();
             $table->integer('job_id');
             $table->integer('user_id');
-            $table->boolean('is_approved');
-            $table->integer('prise');
+            $table->bigInteger('amount');
             $table->timestamps();
         });
     }

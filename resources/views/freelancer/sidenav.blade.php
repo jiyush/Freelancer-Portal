@@ -4,7 +4,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading"></div>
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ route('freelancer') }}">
                         <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                         Search Job
                     </a>

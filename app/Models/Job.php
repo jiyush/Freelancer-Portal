@@ -30,7 +30,7 @@ class Job extends Model
      */
     public function addJob(array $data){
         $job =  Job::create([
-            'title' => $data['title'],
+            'title' =>  ucwords($data['title']),
             'description' => $data['description'],
             'category_id' => $data['category_id'],
             'user_id' => Auth::user()->id,
@@ -45,7 +45,7 @@ class Job extends Model
      */
     public function updateJob(array $data){
         $job = Job::whereId($data['id'])->firstOrFail();
-        $job->title = $data['title'];
+        $job->title = ucwords($data['title']);
         $job->description = $data['description'];
         $job->category_id = $data['category_id'];
         $job->user_id = Auth::user()->id;
@@ -77,6 +77,19 @@ class Job extends Model
     public function getAllJobs(){
         $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
                 ->select('jobs.*','categories.name as category')
+                ->orderBy('jobs.title')
+                ->get();
+        return $jobs;
+    }
+
+    /**
+     * get not bided jobs
+     */
+    public function getNotBidedJobs(){
+        $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+                ->select('jobs.*','categories.name as category')
+                ->where('bid_status', 1)
+                ->orderBy('jobs.title')
                 ->get();
         return $jobs;
     }

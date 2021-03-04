@@ -7,7 +7,7 @@
             @if (Auth::user()->role == 'admin')
                 @include('admin.user')
             @elseif (Auth::user()->role == 'freelancer')
-                @include('freelancer.search')
+            <script>window.location = "/home/search"</script>
             @else
                 <script>window.location = "/home/job"</script>
             @endif
