@@ -31,7 +31,7 @@ class Bid extends Model
             'amount' => $data['amount'],
         ]);
         $job = Job::whereId($bid->job_id)->firstOrFail();
-        $job->bid_status = 0;
+        $job->bid_status = 1;
         $job->save();
         return $bid;
     }

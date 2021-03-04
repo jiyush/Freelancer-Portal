@@ -86,5 +86,33 @@ class JobController extends Controller
         return redirect(route('job'));
     }
 
+    /**
+     * get bided jobs
+     */
+    public function getBids(){
+        $jobs = $this->job->getBidedJobs();
+        return view('provider.bids')->with('jobs', $jobs);
+    }
+
+    /**
+     * Accept bid
+     */
+    public function accept(Request $request){
+        $data = $request->all();
+        $bid = $this->job->acceptBid($data);
+        if($bid){
+            return redirect(route('job.bid'));
+        }
+    }
+    /**
+     * Cancle bid
+     */
+    public function cancle(Request $request){
+        $data = $request->all();
+        $job = $this->job->cancleBid($data);
+        if($job){
+            return redirect(route('job.bid'));
+        }
+    }
 
 }

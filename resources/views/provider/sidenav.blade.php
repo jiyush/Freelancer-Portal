@@ -8,6 +8,10 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                         Jobs
                     </a>
+                    <a class="nav-link" href="{{ route('job.bid') }}">
+                        <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
+                        Job Bids
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">

@@ -36,4 +36,12 @@ class FreelancerController extends Controller
             return redirect(route('freelancer'));
         }
     }
+    /**
+     * get appruved job for freelancer
+     */
+    public function myJobs(){
+        $jobs = $this->job->getAcceptedJobs();
+        return view('freelancer.myJobs')->with('jobs', $jobs);
+    }
+
 }

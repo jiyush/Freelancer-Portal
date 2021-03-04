@@ -20,7 +20,7 @@ class CreateJobsTable extends Migration
             $table->integer('category_id');
             $table->integer('user_id');
             $table->integer('bid_id')->nullable();
-            $table->boolean('bid_status')->nullable()->default(1);
+            $table->boolean('bid_status')->nullable()->default(0);
             $table->date('startdate');
             $table->date('enddate');
             $table->timestamps();

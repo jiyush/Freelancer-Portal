@@ -48,10 +48,14 @@ Route::group(['prefix' => 'home', 'middleware' => 'auth'], function () {
     Route::get('/job/edit/{id}', 'JobController@editJob')->name('job.edit');
     Route::post('/job/update', 'JobController@updateJob')->name('job.update');
     Route::post('/job/delete', 'JobController@delete')->name('job.delete');
+    Route::get('/job/bid', 'JobController@getBids')->name('job.bid');
+    Route::post('/job/accept', 'JobController@accept')->name('job.accept');
+    Route::post('/job/cancle', 'JobController@cancle')->name('job.cancle');
 
     // Freelance route
     Route::get('/search', 'FreelancerController@index')->name('freelancer');
     Route::post('/freelancer/bid', 'FreelancerController@bid')->name('freelancer.bid');
+    Route::get('/freelancer/job', 'FreelancerController@myJobs')->name('freelancer.job');
 
 });
 

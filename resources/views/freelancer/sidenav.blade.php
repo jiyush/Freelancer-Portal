@@ -8,7 +8,7 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                         Search Job
                     </a>
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ route('freelancer.job') }}">
                         <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                         My Jobs
                     </a>

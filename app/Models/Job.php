@@ -75,8 +75,31 @@ class Job extends Model
      * Get all job for listin
      */
     public function getAllJobs(){
-        $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+        if(Auth::user()->role == 'admin'){
+            $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
                 ->select('jobs.*','categories.name as category')
+                ->orderBy('jobs.title')
+                ->get();
+        }else{
+            $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+                ->where('user_id',Auth::user()->id)
+                ->select('jobs.*','categories.name as category')
+                ->orderBy('jobs.title')
+                ->get();
+        }
+
+        return $jobs;
+    }
+
+    /**
+     * get bided jobs
+     */
+    public function getBidedJobs(){
+        $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+                ->join('bids', 'jobs.id','=','bids.job_id')
+                ->where('bid_status', 1)
+                ->where('jobs.user_id',Auth::user()->id)
+                ->select('jobs.*','categories.name as category','bids.amount', 'bids.id as bidId')
                 ->orderBy('jobs.title')
                 ->get();
         return $jobs;
@@ -88,7 +111,44 @@ class Job extends Model
     public function getNotBidedJobs(){
         $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
                 ->select('jobs.*','categories.name as category')
+                ->where('bid_status', 0)
+                ->orderBy('jobs.title')
+                ->get();
+        return $jobs;
+    }
+
+    /**
+     * Accept bid
+     */
+    public function acceptBid(array $data){
+        $job = Job::whereId($data['job_id'])->firstOrFail();
+        $job->bid_id = $data['bid_id'];
+        $job->save();
+        return $job;
+    }
+
+    /**
+     * Cancle bid
+     */
+    public function cancleBid(array $data){
+        $job = Job::whereId($data['job_id'])->firstOrFail();
+        $job->bid_status = 0;
+        $job->save();
+        $bid = Bid::whereId($data['bid_id'])->delete();
+        return $job;
+    }
+
+    /**
+     * get accepted jobs for freelancer
+     */
+    public function getAcceptedJobs(){
+        $userid = Auth::user()->id;
+        $jobs = Job::join('categories', 'jobs.category_id','=','categories.id')
+                ->join('bids', 'jobs.id','=','bids.job_id')
                 ->where('bid_status', 1)
+                ->where('bid_id','!=',null)
+                ->where('bids.user_id',$userid)
+                ->select('jobs.*','categories.name as category','bids.amount', 'bids.id as bidId')
                 ->orderBy('jobs.title')
                 ->get();
         return $jobs;
