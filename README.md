@@ -3,8 +3,9 @@
 
 ## Step to setup Freelancer portal
 
-Step 1 :- Clone repositories
-step 2 :- create data base and add credentials to .env file
+Step 1 :- Clone repositories.
+step 2 :- create data base and add credentials to .env file.
+step 3 :- Run command php artisan key:generate
 step 3 :- Run command php artisan migrate
 step 4 :- Run Command php artisan db:seed
 step 5 :- Login as admin. default admin credential are in user seeder file
