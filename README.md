@@ -10,9 +10,6 @@ step 3 :- Run command php artisan migrate
 step 4 :- Run Command php artisan db:seed
 step 5 :- Login as admin. default admin credential are in user seeder file
 
-![alt text](https://photos.app.goo.gl/z9oSkUKAtCftHfhm9)
-![atl text](https://photos.app.goo.gl/k4mH3uswvTRT8Dy36)
-![atl text](https://photos.app.goo.gl/WX8GxsrM3d2RarzQ9)
 
 
 
