@@ -23,12 +23,16 @@ Route::group(['prefix' => 'home', 'middleware' => 'auth'], function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 
+
     // User Routes
-    Route::get('/user/add','UserController@addUser')->name('user.add');
-    Route::post('/user/save','UserController@saveUser')->name('user.save');
-    Route::get('/user/edit/{id}','UserController@editUser')->name('user.edit');
-    Route::post('/user/update', 'UserController@updateUser')->name('user.update');
-    Route::post('/user/delete', 'UserController@delete')->name('user.delete');
+    Route::group(['prefix'=>'user','middleware' => 'admin'], function(){
+
+        Route::get('/add','UserController@addUser')->name('user.add');
+        Route::post('/save','UserController@saveUser')->name('user.save');
+        Route::get('/edit/{id}','UserController@editUser')->name('user.edit');
+        Route::post('/update', 'UserController@updateUser')->name('user.update');
+        Route::post('/delete', 'UserController@delete')->name('user.delete');
+    });
 
     // Category Routes
     Route::group(['prefix'=> 'category','middleware' => 'admin'],function () {
@@ -42,15 +46,18 @@ Route::group(['prefix' => 'home', 'middleware' => 'auth'], function () {
     });
 
     // Job routes
-    Route::get('/job', 'JobController@index')->name('job');
-    Route::get('/job/add', 'JobController@addJob')->name('job.add');
-    Route::post('/job/save', 'JobController@saveJob')->name('job.save');
-    Route::get('/job/edit/{id}', 'JobController@editJob')->name('job.edit');
-    Route::post('/job/update', 'JobController@updateJob')->name('job.update');
-    Route::post('/job/delete', 'JobController@delete')->name('job.delete');
-    Route::get('/job/bid', 'JobController@getBids')->name('job.bid');
-    Route::post('/job/accept', 'JobController@accept')->name('job.accept');
-    Route::post('/job/cancle', 'JobController@cancle')->name('job.cancle');
+    Route::group(['prefix'=> 'job'], function(){
+
+        Route::get('/', 'JobController@index')->name('job');
+        Route::get('/add', 'JobController@addJob')->name('job.add');
+        Route::post('/save', 'JobController@saveJob')->name('job.save');
+        Route::get('/edit/{id}', 'JobController@editJob')->name('job.edit');
+        Route::post('/update', 'JobController@updateJob')->name('job.update');
+        Route::post('/delete', 'JobController@delete')->name('job.delete');
+        Route::get('/bid', 'JobController@getBids')->name('job.bid');
+        Route::post('/accept', 'JobController@accept')->name('job.accept');
+        Route::post('/cancle', 'JobController@cancle')->name('job.cancle');
+    });
 
     // Freelance route
     Route::get('/search', 'FreelancerController@index')->name('freelancer');

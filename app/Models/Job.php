@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use App\Models\Bid;
 
 class Job extends Model
 {
@@ -61,6 +62,7 @@ class Job extends Model
      * @param $id
      */
     public function deleteJob($id){
+        $bid = Bid::where('job_id','=',$id)->delete();
         $job = Job::whereId($id)->delete();
     }
 

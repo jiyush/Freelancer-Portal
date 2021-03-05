@@ -34,6 +34,8 @@ class FreelancerController extends Controller
         $bid = $this->bid->addBid($data);
         if($bid){
             return redirect(route('freelancer'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Bid is not added!']);
         }
     }
     /**

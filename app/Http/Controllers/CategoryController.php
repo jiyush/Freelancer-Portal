@@ -45,6 +45,8 @@ class CategoryController extends Controller
         $category = $this->category->addCategory($data);
         if($category){
             return redirect(route('category'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Category is not added!']);
         }
 
     }
@@ -72,6 +74,8 @@ class CategoryController extends Controller
         $category = $this->category->updateCategory($data);
         if($category){
             return redirect(route('category'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Category is not updated!']);
         }
     }
 

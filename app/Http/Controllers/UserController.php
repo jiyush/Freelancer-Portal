@@ -45,8 +45,9 @@ class UserController extends Controller
             $data = $request->all();
             $user = $this->user->addUser($data);
             if($user){
-
                 return redirect(route('home'));
+            }else{
+                return Redirect::back()->withErrors(['msg', 'User is not added!']);
             }
     }
 
@@ -78,8 +79,9 @@ class UserController extends Controller
         $data = $request->all();
         $user = $this->user->updateUser($data);
         if($user){
-
             return redirect(route('home'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'User is not updated!']);
         }
     }
 

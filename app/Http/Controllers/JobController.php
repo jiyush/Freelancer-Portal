@@ -45,6 +45,8 @@ class JobController extends Controller
         $job = $this->job->addJob($data);
         if($job){
             return redirect(route('job'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Job is not added!']);
         }
     }
 
@@ -73,6 +75,8 @@ class JobController extends Controller
         $job = $this->job->updateJob($data);
         if($job){
             return redirect(route('job'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Job is not updated!']);
         }
     }
 
@@ -102,6 +106,8 @@ class JobController extends Controller
         $bid = $this->job->acceptBid($data);
         if($bid){
             return redirect(route('job.bid'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'bid is not accepted!']);
         }
     }
     /**
@@ -112,6 +118,8 @@ class JobController extends Controller
         $job = $this->job->cancleBid($data);
         if($job){
             return redirect(route('job.bid'));
+        }else{
+            return Redirect::back()->withErrors(['msg', 'Bid is not cancled!']);
         }
     }
 
